@@ -1,0 +1,23 @@
+<main class="form-signin">
+    <form autocomplete="off" [formGroup]="formulario" (ngSubmit)="onSubmit()">
+        <h1 class="h3 mb-3 fw-normal">Inicio de Sesi&oacute;n</h1>
+
+        <div class="form-floating">
+            <input id="correo" type="email" class="form-control" placeholder="Correo" formControlName="email">
+            <label for="correo">Correo</label>
+        </div>
+        <div class="form-floating">
+            <input id="clave" type="password" class="form-control" placeholder="Contrase&ntilde;a"
+                formControlName="password">
+            <label for="clave">Contrase&ntilde;a</label>
+        </div>
+
+        <!-- <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Recordarme
+            </label>
+        </div> -->
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Iniciar sesi&oacute;n</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+    </form>
+</main>

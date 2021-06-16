@@ -1,23 +1,30 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { ServiceWorkerModule } from '@angular/service-worker';
 
+import { LoginComponent } from './pages/login/login.component';
+
 import { environment } from '../environments/environment.dev';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
