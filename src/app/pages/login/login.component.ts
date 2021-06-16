@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,12 +13,11 @@ export class LoginComponent implements OnInit {
 
   public formulario!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private auth: AuthService) {
     this.crearFormulario();
   }
 
   ngOnInit(): void {
-
   }
 
   private crearFormulario() {
@@ -36,8 +37,15 @@ export class LoginComponent implements OnInit {
       });
     }
     console.log(this.formulario.value);
-    console.log(this.formulario.controls.email.value);
-    console.log(this.formulario.controls.password.value);
+    const email = this.formulario.controls.email.value;
+    const password = this.formulario.controls.password.value;
+    this.auth.signIn(email, password).then(response => {
+      console.log(response);
+    })
+      .catch(error => {
+        console.error(error);
+      });
+
     this.formulario.reset();
   }
 
