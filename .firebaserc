@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "data-base-38d79": {
+      "hosting": {
+        "angular-firebase-auth": [
+          "data-base-38d79"
+        ]
+      }
+    }
+  }
+}
