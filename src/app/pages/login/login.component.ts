@@ -49,7 +49,11 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/login']);
         });
 
-      console.log(response.user?.emailVerified);
+
+      response.user?.getIdTokenResult()
+      .then(response => {
+        console.log(response.claims);
+      });
       this.router.navigate(['/home']);
     })
       .catch(error => {

@@ -20,4 +20,8 @@ export class AuthService {
   public authStatus() {
     return this.auth.authState;
   }
+
+  public currentUser() {
+    return this.auth.currentUser;
+  }
 }

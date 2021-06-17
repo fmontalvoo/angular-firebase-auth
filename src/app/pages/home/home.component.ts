@@ -11,9 +11,19 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HomeComponent implements OnInit {
 
+  public isAdmin: boolean = false;
+
   constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.auth.currentUser().then(data => {
+      data?.getIdTokenResult().then(idTokenResult => {
+        console.log(idTokenResult);
+        if (!!idTokenResult.claims.admin) {
+          this.isAdmin = true;
+        }
+      });
+    });
   }
 
   logOut(): void {
