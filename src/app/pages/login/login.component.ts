@@ -41,8 +41,15 @@ export class LoginComponent implements OnInit {
     console.log(this.formulario.value);
     const email = this.formulario.controls.email.value;
     const password = this.formulario.controls.password.value;
-    this.auth.signIn(email, password).then(_ => {
+    this.auth.signIn(email, password).then(response => {
       console.info("Iniciando sesion");
+      if (!response.user?.emailVerified)
+        this.auth.signOut().then(_ => {
+          console.log("Por favor verifique su email");
+          this.router.navigate(['/login']);
+        });
+
+      console.log(response.user?.emailVerified);
       this.router.navigate(['/home']);
     })
       .catch(error => {
