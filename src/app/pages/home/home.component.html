@@ -1,5 +1,7 @@
 <div>
     <a *ngIf="isAdmin" routerLink="/admin">Administracion</a>
     <br>
+    <a *ngIf="isEditor" routerLink="/editor">Edicion</a>
+    <br>
     <button (click)="logOut()">Cerrar sesi&oacute;n</button>
 </div>

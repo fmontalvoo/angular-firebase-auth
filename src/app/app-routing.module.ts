@@ -5,6 +5,7 @@ import { AngularFireAuthGuard, AuthPipeGenerator, customClaims, hasCustomClaim, 
 
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { EditorComponent } from './pages/editor/editor.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 import { pipe } from 'rxjs';
@@ -28,10 +29,22 @@ const redirectUnauthorizedOrUnverifiedUser: AuthPipeGenerator = () =>
   });
 
 const accountAdmin = (claim: string, redirect: string | any[]) => {
-  return pipe(customClaims, map(claims => claims.hasOwnProperty(claim) || redirect));
+  return pipe(customClaims, map(claims => (claims.hasOwnProperty(claim) && !!claims['admin']) || redirect));
+}
+
+const hasRole = (roles: string[], redirect: string | any[]) => {
+  return pipe(customClaims, map(claims => {
+    if (claims.hasOwnProperty('roles')) {
+      let hasRole: boolean = false;
+      roles.forEach(role => hasRole ||= claims['roles'].includes(role));
+      return hasRole || redirect;
+    }
+    return redirect;
+  }));
 }
 
 const adminOnly = () => accountAdmin('admin', ['home']);
+const withRolesOnly = () => hasRole(['admin', 'editor'], ['home']);
 
 const routes: Routes = [
   {
@@ -45,6 +58,12 @@ const routes: Routes = [
     component: DashboardComponent,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: adminOnly }
+  },
+  {
+    path: 'editor',
+    component: EditorComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: withRolesOnly }
   },
   {
     path: 'home',

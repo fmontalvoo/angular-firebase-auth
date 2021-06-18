@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HomeComponent implements OnInit, OnDestroy {
 
   public isAdmin: boolean = false;
+  public isEditor: boolean = false;
 
   private authSubscription: any;
 
@@ -21,9 +22,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.authSubscription = this.auth.authStatus().subscribe(data => {
       data?.getIdTokenResult().then(idTokenResult => {
         console.log(idTokenResult);
-        if (!!idTokenResult.claims.admin) {
+        if (!!idTokenResult.claims['admin'])
           this.isAdmin = true;
-        }
+
+        if (idTokenResult.claims['roles'].includes('editor'))
+          this.isEditor = true;
+
       });
     });
   }

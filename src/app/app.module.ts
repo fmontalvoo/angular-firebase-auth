@@ -16,14 +16,16 @@ import { LoginComponent } from './pages/login/login.component';
 import { environment } from '../environments/environment.dev';
 import { HomeComponent } from './pages/home/home.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { EditorComponent } from './pages/editor/editor.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     HomeComponent,
-    DashboardComponent
+    LoginComponent,
+    EditorComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
