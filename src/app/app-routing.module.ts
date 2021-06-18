@@ -44,7 +44,7 @@ const hasRole = (roles: string[], redirect: string | any[]) => {
 }
 
 const adminOnly = () => accountAdmin('admin', ['home']);
-const withRolesOnly = () => hasRole(['admin', 'editor'], ['home']);
+const withRolesOnly = () => hasRole(['editor'], ['home']);
 
 const routes: Routes = [
   {

@@ -13,6 +13,24 @@ export class AuthService {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
 
+  public signUp(email: string, password: string) {
+    this.auth.createUserWithEmailAndPassword(email, password)
+      .then(response => {
+        response.user?.sendEmailVerification({
+          url: 'http://localhost:4200/'
+        })
+          .then(res => {
+            console.log(res);
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
   public signOut() {
     return this.auth.signOut();
   }

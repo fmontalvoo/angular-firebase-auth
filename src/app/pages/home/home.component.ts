@@ -20,15 +20,19 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.authSubscription = this.auth.authStatus().subscribe(data => {
-      data?.getIdTokenResult().then(idTokenResult => {
-        console.log(idTokenResult);
-        if (!!idTokenResult.claims['admin'])
-          this.isAdmin = true;
+      // Fuerza a refrescar el token de acceso.
+      data?.getIdToken(true).then(idToken => {
+        data?.getIdTokenResult().then(idTokenResult => {
+          console.log(idTokenResult);
+          if (!!idTokenResult.claims['admin'])
+            this.isAdmin = true;
 
-        if (idTokenResult.claims['roles'].includes('editor'))
-          this.isEditor = true;
+          if (idTokenResult.claims['roles'].includes('editor'))
+            this.isEditor = true;
 
+        });
       });
+
     });
   }
 
