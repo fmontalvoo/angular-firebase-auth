@@ -24,13 +24,19 @@ export class HomeComponent implements OnInit, OnDestroy {
       data?.getIdToken(true).then(idToken => {
         console.log(idToken);
         data?.getIdTokenResult().then(idTokenResult => {
+
           console.log(idTokenResult);
-          if (!!idTokenResult.claims['admin'])
-            this.isAdmin = true;
+          const claims = idTokenResult.claims;
 
-          if (idTokenResult.claims['roles'].includes('editor'))
-            this.isEditor = true;
+          if (claims.hasOwnProperty('admin')) {
+            if (!!idTokenResult.claims['admin'])
+              this.isAdmin = true;
+          }
 
+          if (claims.hasOwnProperty('roles')) {
+            if (idTokenResult.claims['roles'].includes('editor'))
+              this.isEditor = true;
+          }
         });
       });
 
