@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.authSubscription = this.auth.authStatus().subscribe(data => {
       // Fuerza a refrescar el token de acceso.
       data?.getIdToken(true).then(idToken => {
+        console.log(idToken);
         data?.getIdTokenResult().then(idTokenResult => {
           console.log(idTokenResult);
           if (!!idTokenResult.claims['admin'])

@@ -14,6 +14,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
 
   public formulario!: FormGroup;
+  public loading: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private auth: AuthService, private router: Router) {
     this.crearFormulario();
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   public onSubmit() {
+    this.loading = true;
     if (this.formulario.invalid) {
       return Object.values(this.formulario.controls).forEach(control => {
         if (control instanceof FormGroup)
@@ -49,14 +51,16 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/login']);
         });
 
-
       response.user?.getIdTokenResult()
-      .then(response => {
-        console.log(response.claims);
-      });
+        .then(response => {
+          console.log(response.claims);
+        });
+
+      this.loading = false;
       this.router.navigate(['/home']);
     })
       .catch(error => {
+        this.loading = false;
         console.error(error);
       });
 
