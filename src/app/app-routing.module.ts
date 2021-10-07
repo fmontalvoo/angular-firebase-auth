@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AngularFireAuthGuard, AuthPipeGenerator, customClaims, hasCustomClaim, redirectLoggedInTo } from '@angular/fire/auth-guard';
+import {
+  AngularFireAuthGuard,
+  AuthPipeGenerator,
+  customClaims,
+  hasCustomClaim,
+  redirectLoggedInTo
+} from '@angular/fire/compat/auth-guard';
 
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
